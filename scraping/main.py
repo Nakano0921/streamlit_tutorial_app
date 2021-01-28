@@ -73,34 +73,34 @@ def open_area(driver):
     driver.get(const.top_url)
     sleep(1)
     # 「銀座」を押す
-    button = driver.find_element_by_xpath(const.ginza_xpath)
+    ginza_button = driver.find_element_by_xpath(const.ginza_xpath)
     sleep(1)
-    button.click()
+    ginza_button.click()
     sleep(1)
     # レストランを取得
     total_assesment = driver.find_element_by_class_name("ratingCount_6le43").text
     if total_assesment != "規定評価数に達していません":
-        button = driver.find_element_by_xpath(
+        top_res_button = driver.find_element_by_xpath(
             '//*[@id="__layout"]/div/div[2]/div[1]/main/section[1]/a/div[1]/span/img'
         )
         sleep(1)
-        button.click()
+        top_res_button.click()
         sleep(5)
         tab_array = driver.window_handles
         driver.switch_to.window(tab_array[1])
         sleep(1)
         # クチコミを表示
-        button = driver.find_element_by_xpath(const.review_xpath)
+        review_button = driver.find_element_by_xpath(const.review_xpath)
         sleep(1)
-        button.click()
+        review_button.click()
         sleep(1)
-        button = driver.find_element_by_xpath(const.more_xpath)
+        more_see_button = driver.find_element_by_xpath(const.more_xpath)
         sleep(1)
-        button.click()
+        more_see_button.click()
         sleep(1)
-        button = driver.find_element_by_xpath(const.toppage_xpath)
+        firstpage_button = driver.find_element_by_xpath(const.firstpage_xpath)
         sleep(1)
-        button.click()
+        firstpage_button.click()
         sleep(1)
 
 
@@ -112,35 +112,59 @@ def get_item(driver):
     driver.implicitly_wait(3)
     driver.get(assesment_url)
     assesments = driver.find_elements_by_class_name("des_gdIDUsrImprBox")
-    # scraping_cnt = ユーザーが選んだ件数をtextで取得
-    # lis = int(scraping_cnt) / 10
     i = 4
-    # if lis == 1:
-    for assesment in assesments:
-        if i == 24:
-            break
-        comment = assesment.find_element_by_xpath(
-            f'//*[@id="des_inner"]/div[{i}]/div[3]/table/tbody/tr[3]/td'
-        ).text
-        comments.append(comment)
-        taste = assesment.find_element_by_xpath(
-            f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[2]/td[2]/span'
-        ).text
-        tastes.append(taste)
-        service = assesment.find_element_by_xpath(
-            f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[3]/td[2]/span'
-        ).text
-        services.append(service)
-        mood = assesment.find_element_by_xpath(
-            f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[4]/td[2]/span'
-        ).text
-        moods.append(mood)
-        cospa = assesment.find_element_by_xpath(
-            f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[5]/td[2]/span'
-        ).text
-        cospas.append(cospa)
-        i += 2
-
+    l = 0
+    n = 3
+    while l < 9:
+        for assesment in assesments:
+            if i == 24:
+                break
+            comment = assesment.find_element_by_xpath(
+                f'//*[@id="des_inner"]/div[{i}]/div[3]/table/tbody/tr[3]/td'
+            ).text
+            comments.append(comment)
+            taste = assesment.find_element_by_xpath(
+                f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[2]/td[2]/span'
+            ).text
+            tastes.append(taste)
+            service = assesment.find_element_by_xpath(
+                f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[3]/td[2]/span'
+            ).text
+            services.append(service)
+            mood = assesment.find_element_by_xpath(
+                f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[4]/td[2]/span'
+            ).text
+            moods.append(mood)
+            cospa = assesment.find_element_by_xpath(
+                f'//*[@id="des_inner"]/div[{i}]/div[1]/table/tbody/tr[5]/td[2]/span'
+            ).text
+            cospas.append(cospa)
+            i += 2
+        if l == 0:
+            next_page_bottun = driver.find_element_by_xpath('//*[@id="des_inner"]/div[24]/a[1]')
+            sleep(1)
+            next_page_bottun.click()
+            sleep(1)
+            assesments = driver.find_elements_by_class_name("des_gdIDUsrImprBox")
+            l += 1
+            i = 4
+        elif l >= 1 and l <= 5:
+            next_page_bottun = driver.find_element_by_xpath(f'//*[@id="des_inner"]/div[24]/a[{n}]')
+            sleep(1)
+            next_page_bottun.click()
+            sleep(1)
+            assesments = driver.find_elements_by_class_name("des_gdIDUsrImprBox")
+            l += 1
+            n += 1
+            i = 4
+        elif l >= 6:
+            n = 7
+            next_page_bottun = driver.find_element_by_xpath(f'//*[@id="des_inner"]/div[24]/a[{n}]')
+            sleep(1)
+            next_page_bottun.click()
+            sleep(1)
+            l += 1
+        
 
 def write_csv():
     """
@@ -206,7 +230,6 @@ def add_csv(result_negaposies, result_df):
 
 if __name__ == "__main__":
     driver = main()
-    # open_restaurant(driver)
     open_area(driver)
     comments = []
     tastes = []

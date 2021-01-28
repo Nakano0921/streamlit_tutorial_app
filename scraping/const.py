@@ -19,4 +19,4 @@ review_xpath = '//*[@id="main-article"]/nav/ul/li[3]'
 # 「もっと見る」ボタンのxpath
 more_xpath = '//*[@id="guideContent"]/section/div[2]/div[1]/div[1]/div[2]/div/div[3]/a'
 # 「先頭へ」ボタンのxpath
-toppage_xpath = '//*[@id="des_inner"]/div[24]/a[1]'
+firstpage_xpath = '//*[@id="des_inner"]/div[24]/a[1]'
