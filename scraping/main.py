@@ -201,7 +201,7 @@ def add_csv(result_negaposies, result_df):
     """
     result_df["negaposi"] = result_negaposies
     result_df.to_csv("assesment.csv")
-    print(result_df)
+    # 確認用のコードprint(result_df)
 
 
 if __name__ == "__main__":
