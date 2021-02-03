@@ -1,5 +1,4 @@
 from selenium import webdriver
-from time import sleep
 import chromedriver_binary
 import pandas as pd
 import oseti
@@ -24,22 +23,22 @@ def open_restaurant(driver):
     """
     # 一休レストランのTOPページ
     driver.get(const.top_url)
-    sleep(1)
+    driver.implicitly_wait(1)
     # 「検索」を押す
     button = driver.find_element_by_xpath(const.search_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
     # 店名を検索
     button = driver.find_element_by_xpath(const.specific_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
     restaurant_name = input("レストランの名前を入力してください。")
     button.send_keys(restaurant_name)
-    sleep(1)
+    driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.search_botton_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
     # レストランを取得してクチコミを表示
     total_assesment = driver.find_element_by_class_name("ratingLabel_hndnZ").text
@@ -48,22 +47,22 @@ def open_restaurant(driver):
     else:
         button = driver.find_element_by_xpath(const.search_result)
         button.click()
-    sleep(5)
+    driver.implicitly_wait(5)
     tab_array = driver.window_handles
     driver.switch_to.window(tab_array[1])
-    sleep(1)
+    driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.review_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.more_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.toppage_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
 
 
 def open_area(driver):
@@ -75,37 +74,37 @@ def open_area(driver):
     """
     # 一休レストランのTOPページ
     driver.get(const.top_url)
-    sleep(1)
+    driver.implicitly_wait(1)
     # 「銀座」を押す
     ginza_button = driver.find_element_by_xpath(const.ginza_xpath)
-    sleep(1)
+    driver.implicitly_wait(1)
     ginza_button.click()
-    sleep(1)
+    driver.implicitly_wait(1)
     # レストランを取得
     total_assesment = driver.find_element_by_class_name("ratingCount_6le43").text
     if total_assesment != "規定評価数に達していません":
         top_res_button = driver.find_element_by_xpath(
             '//*[@id="__layout"]/div/div[2]/div[1]/main/section[1]/a/div[1]/span/img'
         )
-        sleep(1)
+        driver.implicitly_wait(1)
         top_res_button.click()
-        sleep(5)
+        driver.implicitly_wait(5)
         tab_array = driver.window_handles
         driver.switch_to.window(tab_array[1])
-        sleep(1)
+        driver.implicitly_wait(1)
         # クチコミを表示
         review_button = driver.find_element_by_xpath(const.review_xpath)
-        sleep(1)
+        driver.implicitly_wait(1)
         review_button.click()
-        sleep(1)
+        driver.implicitly_wait(1)
         more_see_button = driver.find_element_by_xpath(const.more_xpath)
-        sleep(1)
+        driver.implicitly_wait(1)
         more_see_button.click()
-        sleep(1)
+        driver.implicitly_wait(1)
         firstpage_button = driver.find_element_by_xpath(const.firstpage_xpath)
-        sleep(1)
+        driver.implicitly_wait(1)
         firstpage_button.click()
-        sleep(1)
+        driver.implicitly_wait(1)
 
 
 def get_item(driver):
@@ -146,17 +145,17 @@ def get_item(driver):
             i += 2
         if l == 0:
             next_page_bottun = driver.find_element_by_xpath('//*[@id="des_inner"]/div[24]/a[1]')
-            sleep(1)
+            driver.implicitly_wait(1)
             next_page_bottun.click()
-            sleep(1)
+            driver.implicitly_wait(1)
             assesments = driver.find_elements_by_class_name("des_gdIDUsrImprBox")
             l += 1
             i = 4
         elif l >= 1 and l <= 5:
             next_page_bottun = driver.find_element_by_xpath(f'//*[@id="des_inner"]/div[24]/a[{n}]')
-            sleep(1)
+            driver.implicitly_wait(1)
             next_page_bottun.click()
-            sleep(1)
+            driver.implicitly_wait(1)
             assesments = driver.find_elements_by_class_name("des_gdIDUsrImprBox")
             l += 1
             n += 1
@@ -164,9 +163,9 @@ def get_item(driver):
         elif l >= 6:
             n = 7
             next_page_bottun = driver.find_element_by_xpath(f'//*[@id="des_inner"]/div[24]/a[{n}]')
-            sleep(1)
+            driver.implicitly_wait(1)
             next_page_bottun.click()
-            sleep(1)
+            driver.implicitly_wait(1)
             l += 1
         
 
