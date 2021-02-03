@@ -54,7 +54,7 @@ def open_restaurant(driver):
     button = driver.find_element_by_xpath(const.review_xpath)
     driver.implicitly_wait(1)
     button.click()
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
     button = driver.find_element_by_xpath(const.more_xpath)
     driver.implicitly_wait(1)
     button.click()
