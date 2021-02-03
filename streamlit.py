@@ -3,7 +3,7 @@ import pandas as pd
 import subprocess
 
 
-st.title('分析アプリverStreamlit')
+st.title('AIを活用したクチコミ分析')
 
 uploaded_file = st.sidebar.file_uploader("ファイルをアップロード", type='csv')
 
