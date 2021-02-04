@@ -11,7 +11,8 @@ def main():
     options = webdriver.ChromeOptions()
     options.add_argument("--headless") 
     driver = webdriver.Chrome(options=options, executable_path=driver_path)
-    # ローカル用のコードdriver = webdriver.Chrome(options=options)
+    # ローカル用のコード(headless) driver = webdriver.Chrome(options=options)
+    # ローカル用のコード(not headless) driver = webdriver.Chrome()
     return driver
 
 
@@ -54,7 +55,7 @@ def open_restaurant(driver):
     button = driver.find_element_by_xpath(const.review_xpath)
     driver.implicitly_wait(1)
     button.click()
-    driver.implicitly_wait(3)
+    driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.more_xpath)
     driver.implicitly_wait(1)
     button.click()
@@ -96,7 +97,7 @@ def open_area(driver):
         review_button = driver.find_element_by_xpath(const.review_xpath)
         driver.implicitly_wait(1)
         review_button.click()
-        driver.implicitly_wait(5)
+        driver.implicitly_wait(10)
         more_see_button = driver.find_element_by_xpath(const.more_xpath)
         driver.implicitly_wait(1)
         more_see_button.click()
