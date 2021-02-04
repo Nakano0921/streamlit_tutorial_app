@@ -10,6 +10,7 @@ def main():
     driver_path = "/app/.chromedriver/bin/chromedriver"
     options = webdriver.ChromeOptions()
     options.add_argument("--headless") 
+    options.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(options=options, executable_path=driver_path)
     # ローカル用のコード(headless) driver = webdriver.Chrome(options=options)
     # ローカル用のコード(not headless) driver = webdriver.Chrome()
