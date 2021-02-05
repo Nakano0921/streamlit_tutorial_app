@@ -1,38 +1,23 @@
 import streamlit as st
 import pandas as pd
-import subprocess
+import statistics
 
 
 st.title('AIを活用したクチコミ分析')
+st.write('ファイルをアップロードすると評価一覧がみれます。')
 
 uploaded_file = st.sidebar.file_uploader("ファイルをアップロード", type='csv')
-
-start_scraping = st.button("Let's scraping")
-if start_scraping == True:
-  scraping_file = ["python", "main.py", "スクレイピング中"]
-  proc = subprocess.Popen(scraping_file)
-  st.write('ただいまデータを取得しています')
-  proc.communicate()
-  st.write('データの取得が終了しました')
-  
-restaurant_title = st.text_input('レストラン名：')
-res_title = restaurant_title
-res_scraping = st.button('このレストランでデータを取得する')
-if res_scraping == True:
-  scraping_file = ["python", "main.py", "スクレイピング中"]
-  proc = subprocess.Popen(scraping_file)
-  st.write(f'{res_title}のデータを取得しています')
-  proc.communicate()
-  st.write(f'{res_title}のデータの取得が終了しました')
-  
-
-
 
 if uploaded_file != None:
   st.header('読み込み結果を表示')
   df = pd.read_csv(uploaded_file)
+  df = df.drop(columns=df.columns[[0]])
   st.write(df)
 
-  st.header('グラフで結果を表示')
-  df = df['negaposi']
-  st.line_chart(df)
+  negaposi_df = df['negaposi']
+
+  ave_button = st.button('ネガポジの平均点を表示する')
+  if ave_button == True:
+    ave_score = statistics.mean(negaposi_df)
+    ave_score = str(round(ave_score, 2))
+    st.header(f'平均点は{ave_score}点です')
