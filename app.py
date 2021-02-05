@@ -21,9 +21,9 @@ res_scraping = st.button('このレストランでデータを取得する')
 if res_scraping == True:
   scraping_file = ["python", "main.py", "スクレイピング中"]
   proc = subprocess.Popen(scraping_file)
-  st.write('ただいまデータを取得しています')
+  st.write(f'{res_title}のデータを取得しています')
   proc.communicate()
-  st.write('データの取得が終了しました')
+  st.write(f'{res_title}のデータの取得が終了しました')
   
 
 
