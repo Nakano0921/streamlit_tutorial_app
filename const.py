@@ -11,7 +11,7 @@ search_botton_xpath = (
     '//*[@id="__layout"]/div/div[2]/div/aside/div[2]/form/div[1]/div/button'
 )
 # 検索結果のxpath
-search_result = '//*[@id="__layout"]/div/div[2]/div/main/section/a/div[1]/span/img'
+search_result = '//*[@id="__layout"]/div/div[2]/div/main/section/a/div[2]/h3'
 # 「銀座」ボタンのxpath
 ginza_xpath = '//*[@id="__layout"]/div/main/div[2]/section[3]/div[2]/nav[1]/a[2]'
 # 「クチコミ」ボタンのxpath

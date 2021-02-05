@@ -4,16 +4,19 @@ import pandas as pd
 import oseti
 import numpy as np
 import const
+import app
 
 
 def main():
-    driver_path = "/app/.chromedriver/bin/chromedriver"
-    options = webdriver.ChromeOptions()
-    options.add_argument("--headless") 
-    options.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(options=options, executable_path=driver_path)
-    # ローカル用のコード(headless) driver = webdriver.Chrome(options=options)
-    # ローカル用のコード(not headless) driver = webdriver.Chrome()
+    # driver_path = "/app/.chromedriver/bin/chromedriver"
+    # options = webdriver.ChromeOptions()
+    # options.add_argument("--headless") 
+    # options.add_argument("--disable-dev-shm-usage")
+    # driver = webdriver.Chrome(options=options, executable_path=driver_path)
+    # ローカル用のコード(headless)
+    # driver = webdriver.Chrome(options=options)
+    # ローカル用のコード(not headless)
+    driver = webdriver.Chrome()
     return driver
 
 
@@ -36,8 +39,7 @@ def open_restaurant(driver):
     driver.implicitly_wait(1)
     button.click()
     driver.implicitly_wait(1)
-    restaurant_name = input("レストランの名前を入力してください。")
-    button.send_keys(restaurant_name)
+    button.send_keys(app.res_title)
     driver.implicitly_wait(1)
     button = driver.find_element_by_xpath(const.search_botton_xpath)
     driver.implicitly_wait(1)
@@ -52,19 +54,19 @@ def open_restaurant(driver):
     driver.implicitly_wait(5)
     tab_array = driver.window_handles
     driver.switch_to.window(tab_array[1])
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(3)
     button = driver.find_element_by_xpath(const.review_xpath)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
     button.click()
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
     button = driver.find_element_by_xpath(const.more_xpath)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
     button.click()
-    driver.implicitly_wait(1)
-    button = driver.find_element_by_xpath(const.toppage_xpath)
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
+    button = driver.find_element_by_xpath(const.firstpage_xpath)
+    driver.implicitly_wait(2)
     button.click()
-    driver.implicitly_wait(1)
+    driver.implicitly_wait(2)
 
 
 def open_area(driver):
@@ -98,7 +100,7 @@ def open_area(driver):
         review_button = driver.find_element_by_xpath(const.review_xpath)
         driver.implicitly_wait(1)
         review_button.click()
-        driver.implicitly_wait(10)
+        driver.implicitly_wait(5)
         more_see_button = driver.find_element_by_xpath(const.more_xpath)
         driver.implicitly_wait(1)
         more_see_button.click()
@@ -235,7 +237,8 @@ def add_csv(result_negaposies, result_df):
 
 if __name__ == "__main__":
     driver = main()
-    open_area(driver)
+    # open_area(driver)
+    open_restaurant(driver)
     comments = []
     tastes = []
     services = []
