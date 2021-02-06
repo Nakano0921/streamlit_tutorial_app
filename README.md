@@ -1,1 +1,12 @@
-# streamlit_tutorial_app
+# streamlitを利用したクチコミ分析
+- [サービスURL](https://streamlit-scraping-app.herokuapp.com/)
+- 特徴
+  - webスクレイピングで某高級ホテルのクチコミサイトのデータを取得しそのクチコミデータを基にAIでネガティブポジティブの数値分析を行ったものをCSVファイルにした。そのCSVファイルを基に相関分析などを行いStreamlitで見えるようにした。
+- 構成技術
+  - python3.9.0
+  - selenium
+  - oseti
+  - pandas
+  - numpy
+  - Streamlit
+- 開発期間：4日間
