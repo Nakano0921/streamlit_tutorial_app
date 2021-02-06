@@ -1,6 +1,8 @@
 import streamlit as st
 import pandas as pd
 import statistics
+import seaborn as sns
+import matplotlib.pyplot as plt
 
 
 st.title('AIを活用したクチコミ分析')
@@ -16,11 +18,23 @@ if uploaded_file != None:
 
   negaposi_df = df['negaposi']
 
-  ave_button = st.button('ネガポジの平均点を表示する')
+  soukan_button = st.button('特徴毎の相関を見る')
+  if soukan_button == True:
+    soukan_df = df.drop(columns=df.columns[0])
+    soukan_df = soukan_df.corr()
+    st.write(soukan_df)
+    fig, ax = plt.subplots(figsize=(10,10))
+    soukan_df = sns.heatmap(soukan_df,  annot=True, ax=ax)
+    st.subheader('相関をヒートマップで表示')
+    st.pyplot(fig)
+
+  ave_button = st.button('このお店のネガポジの平均点を表示する')
   if ave_button == True:
     ave_score = statistics.mean(negaposi_df)
     ave_score = str(round(ave_score, 2))
     st.header(f'平均点は{ave_score}点です')
+
+
 
 compar_button = st.radio('平均点を比較する', ('和食', '12,000円〜15,000円', '京都'))
 if compar_button == '和食':

@@ -40,7 +40,7 @@ def open_restaurant(driver):
     time.sleep(1)
     button.click()
     time.sleep(3)
-    button.send_keys('XEX TOKYO')
+    button.send_keys('リッツカールトン京都　水暉')
     time.sleep(1)
     button = driver.find_element_by_xpath(const.search_botton_xpath)
     time.sleep(1)
