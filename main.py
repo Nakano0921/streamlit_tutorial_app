@@ -4,8 +4,8 @@ import pandas as pd
 import oseti
 import numpy as np
 import time
+import statistics
 import const
-import app
 
 
 def main():
@@ -40,11 +40,12 @@ def open_restaurant(driver):
     time.sleep(1)
     button.click()
     time.sleep(3)
-    button.send_keys(app.res_title)
+    button.send_keys('XEX TOKYO')
     time.sleep(1)
     button = driver.find_element_by_xpath(const.search_botton_xpath)
     time.sleep(1)
     button.click()
+    time.sleep(1)
     # レストランを取得してクチコミを表示
     total_assesment = driver.find_element_by_class_name("ratingLabel_hndnZ").text
     if total_assesment == "規定評価数に達していません":
