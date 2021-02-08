@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 
 st.title('AIを活用したクチコミ分析')
-st.write('ファイルをアップロードすると評価一覧がみれます。')
+st.write('GitHubからCSVファイルダウンロードして下さい。そのファイルをアップロードすると評価一覧がみれます。')
 
 uploaded_file = st.sidebar.file_uploader("ファイルをアップロード", type='csv')
 
